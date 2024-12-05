@@ -33,11 +33,27 @@ export class InfraStack extends Stack {
       `ReactAppDistribution`,
       {
         defaultBehavior: {
-          origin: origins.S3BucketOrigin.withOriginAccessControl(bucket),
+          origin: new origins.S3Origin(bucket, {
+            originAccessIdentity,
+          }),
           cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED, // Standardowa polityka cache
           viewerProtocolPolicy:
             cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS, // Wymuszenie HTTPS
         },
+        errorResponses: [
+          {
+            httpStatus: 403,
+            responseHttpStatus: 200,
+            responsePagePath: "/index.html",
+            ttl: cdk.Duration.seconds(0),
+          },
+          {
+            httpStatus: 404,
+            responseHttpStatus: 200,
+            responsePagePath: "/index.html",
+            ttl: cdk.Duration.seconds(0),
+          },
+        ],
       }
     );
 
