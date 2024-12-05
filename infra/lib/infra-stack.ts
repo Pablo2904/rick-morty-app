@@ -21,6 +21,12 @@ export class InfraStack extends Stack {
         websiteIndexDocument: "index.html",
         websiteErrorDocument: "index.html",
         publicReadAccess: true,
+        blockPublicAccess: new s3.BlockPublicAccess({
+          blockPublicAcls: false,
+          ignorePublicAcls: false,
+          blockPublicPolicy: false,
+          restrictPublicBuckets: false,
+        }),
       }
     );
 
@@ -41,16 +47,10 @@ export class InfraStack extends Stack {
     );
 
     // Deploy React build files to S3
-    new s3deploy.BucketDeployment(
-      this,
-      `ReactAppDeployment-${branchName}-${uniqueId}`,
-      {
-        sources: [s3deploy.Source.asset("../rick-morty-app-client/build")],
-        destinationBucket: bucket,
-        distribution,
-        distributionPaths: ["/*"], // Invalidate CloudFront cache
-      }
-    );
+    new cdk.CfnOutput(this, `CloudFrontURL-${branchName}-${uniqueId}`, {
+      value: distribution.distributionDomainName,
+      description: `CloudFront URL for branch: ${branchName}`,
+    });
 
     // Output CloudFront URL
     new cdk.CfnOutput(this, `CloudFrontURL-${branchName}-${uniqueId}`, {

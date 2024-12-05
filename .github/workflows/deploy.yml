@@ -36,8 +36,8 @@ jobs:
       - name: Install Dependencies (Infrastructure)
         run: npm install --prefix infra
 
-      # Step 7: Deploy Infrastructure and React Build
-      - name: Deploy to AWS
+      # Step 7: Deploy Infrastructure
+      - name: Deploy Infrastructure
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -46,3 +46,12 @@ jobs:
         run: |
           cd infra
           npx cdk deploy --require-approval never
+
+      # Step 8: Deploy React Build to S3
+      - name: Deploy React Build to S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+        run: |
+          aws s3 sync rick-morty-app-client/build s3://${{ secrets.BUCKET_NAME }} --delete
