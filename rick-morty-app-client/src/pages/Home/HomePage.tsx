@@ -13,7 +13,7 @@ import styles from "./HomePage.module.scss";
 const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>(); // Typed dispatch
   const value = useSelector((state: RootState) => state.example.value); // Access the value from state
-
+  console.log("value", value);
   return (
     <Container className={`mt-5 ${styles.container}`}>
       <Row className="text-center">

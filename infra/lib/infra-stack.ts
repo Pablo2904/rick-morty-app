@@ -40,7 +40,7 @@ export class InfraStack extends Stack {
     new cdk.CfnOutput(this, `BucketName-${branchName}`, {
       value: bucket.bucketName,
       description: `S3 Bucket Name for branch: ${branchName}`,
-      exportName: `BucketName-${branchName}`, // Eksportuje nazwę bucketu
+      exportName: `BucketName-${branchName.replace(/\./g, "-")}`, // Zamień kropki na myślniki
     });
   }
 }
