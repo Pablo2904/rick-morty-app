@@ -1,0 +1,24 @@
+@use "variables" as *; // Import variables
+
+//przycina tekst jak sie nie miesci
+@mixin text-truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@mixin respond($breakpoint) {
+  @if $breakpoint == small {
+    @media (max-width: 576px) {
+      @content;
+    }
+  } @else if $breakpoint == medium {
+    @media (max-width: 768px) {
+      @content;
+    }
+  } @else if $breakpoint == large {
+    @media (max-width: 992px) {
+      @content;
+    }
+  }
+}

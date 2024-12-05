@@ -1,0 +1,44 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - release-*
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout Code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      # Step 3: Install Dependencies
+      - name: Install Dependencies
+        run: npm install --prefix rick-morty-app-client
+
+      # Step 4: Run Tests
+      - name: Run Tests
+        run: npm test --prefix rick-morty-app-client
+
+      # Step 5: Build the React App
+      - name: Build React App
+        run: npm run build --prefix rick-morty-app-client
+
+      # Step 6: Deploy using AWS CDK
+      - name: Deploy to AWS
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+        run: |
+          cd infra
+          npm install
+          npx cdk deploy --require-approval never

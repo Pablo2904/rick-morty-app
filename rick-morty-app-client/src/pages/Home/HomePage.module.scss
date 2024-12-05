@@ -1,0 +1,41 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+//PRZYKLADOWE STYLE
+
+.container {
+  text-align: center;
+  margin-top: 50px;
+  color: aquamarine;
+
+  .title {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    //uzycie mixina respond
+    // Adjust font size on smaller screens
+    @include respond(small) {
+      font-size: 2rem;
+    }
+    //uzycie mixina respond
+    @include respond(medium) {
+      font-size: 2.2rem;
+    }
+  }
+
+  .description {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+
+    // Apply truncation for overflowing text
+    //uzycie mixian text truncate
+    @include text-truncate;
+    width: 80%; // Set width for truncation
+    margin: 0 auto;
+    //uzycie mixina respond
+
+    // Responsive adjustment for truncation width
+    @include respond(small) {
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+@use "./_variables.scss" as *;
+
+.light-theme {
+  --primary-color: #{$light-primary-color};
+  --secondary-color: #{$light-secondary-color};
+  --background: #{$light-background};
+  --text-primary: #{$light-text-primary};
+  --text-secondary: #{$light-text-secondary};
+  --border-color: #{$light-border};
+}
+
+.dark-theme {
+  --primary-color: #{$dark-primary-color};
+  --secondary-color: #{$dark-secondary-color};
+  --background: #{$dark-background};
+  --text-primary: #{$dark-text-primary};
+  --text-secondary: #{$dark-text-secondary};
+  --border-color: #{$dark-border};
+}
+
+// Shared styles for both themes
+body {
+  font-family: $text-font-family;
+  margin: 0;
+  padding: 0;
+}

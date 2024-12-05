@@ -1,0 +1,27 @@
+// Light Theme
+$light-primary-color: #97ce4c; // Rick's portal green
+$light-secondary-color: #43d9b8; // Turquoise accents
+$light-background: #f5f5f5; // Light background
+$light-text-primary: #2c3e50; // Dark text for contrast
+$light-text-secondary: #7f8c8d; // Subtle gray text
+$light-border: #dcdcdc; // Neutral borders
+
+// Dark Theme
+$dark-primary-color: #43d9b8; // Slightly muted turquoise
+$dark-secondary-color: #a347ff; // Purple accents
+$dark-background: #1c1c1c; // Dark background
+$dark-text-primary: #ecf0f1; // Light text for contrast
+$dark-text-secondary: #bdc3c7; // Subtle gray text
+$dark-border: #34495e; // Neutral dark borders
+
+// Shared Gradients
+$gradient-portal: linear-gradient(90deg, #97ce4c, #43d9b8);
+$gradient-purple: linear-gradient(90deg, #a347ff, #5a29a1);
+
+// Typography
+$text-font-family: "Inter", sans-serif;
+
+// Spacing
+$spacing-small: 8px;
+$spacing-medium: 16px;
+$spacing-large: 24px;
