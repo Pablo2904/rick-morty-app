@@ -3,7 +3,7 @@ import { Stack, StackProps } from "aws-cdk-lib";
 import { Construct } from "constructs";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
-import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
+import { S3StaticWebsiteOrigin } from "aws-cdk-lib/aws-cloudfront-origins";
 
 export class InfraStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -25,12 +25,11 @@ export class InfraStack extends Stack {
       `ReactAppDistribution-${branchName}`,
       {
         defaultBehavior: {
-          origin: new origins.S3Origin(bucket), // Bucket jako źródło
+          origin: new S3StaticWebsiteOrigin(bucket), // Użyj poprawnej klasy
           cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
         },
       }
     );
-
     // Wyjście URL dystrybucji
     new cdk.CfnOutput(this, `CloudFrontURL-${branchName}`, {
       value: distribution.distributionDomainName,
