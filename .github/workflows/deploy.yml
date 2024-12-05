@@ -20,9 +20,24 @@ jobs:
         with:
           node-version: 16
 
+      # Step 2.1: Cache Node.js Dependencies
+      - name: Cache Node.js modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            rick-morty-app-client/node_modules
+            infra/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       # Step 3: Install Dependencies
-      - name: Install Dependencies
+      - name: Install Dependencies (Client)
         run: npm install --prefix rick-morty-app-client
+
+      # Step 3.1: Install Dependencies (Infrastructure)
+      - name: Install Dependencies (Infra)
+        run: npm install --prefix infra
 
       # Step 4: Run Tests
       - name: Run Tests
@@ -40,5 +55,12 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
           cd infra
-          npm install
           npx cdk deploy --require-approval never
+
+      # Step 6.1: Save Deployment Logs
+      - name: Save Deployment Logs
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: deployment-logs
+          path: infra/cdk.out
