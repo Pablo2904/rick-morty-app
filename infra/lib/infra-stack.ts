@@ -36,5 +36,11 @@ export class InfraStack extends Stack {
       value: distribution.distributionDomainName,
       description: `CloudFront URL for branch: ${branchName}`,
     });
+
+    new cdk.CfnOutput(this, `BucketName-${branchName}`, {
+      value: bucket.bucketName,
+      description: `S3 Bucket Name for branch: ${branchName}`,
+      exportName: `BucketName-${branchName}`, // Eksportuje nazwę bucketu
+    });
   }
 }
