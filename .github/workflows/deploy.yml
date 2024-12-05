@@ -18,40 +18,40 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 18
 
-      # Step 3: Install Dependencies (React App)
-      - name: Install Dependencies (React App)
-        run: npm install --prefix rick-morty-app-client
-
-      # # Step 4: Run Tests (React App)
-      # - name: Run Tests (React App)
-      #   run: npm test --prefix rick-morty-app-client
-
-      # Step 5: Build the React App
+      # Step 3: Build React App
       - name: Build React App
-        run: npm run build --prefix rick-morty-app-client
-
-      # Step 6: Install Dependencies (Infrastructure)
-      - name: Install Dependencies (Infrastructure)
-        run: npm install --prefix infra
-
-      # Step 7: Deploy Infrastructure
-      - name: Deploy Infrastructure
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          BRANCH_NAME: ${{ github.ref_name }} # Ustawia nazwę brancha jako zmienną środowiskową
         run: |
-          cd infra
-          npx cdk deploy --require-approval never
+          npm install --prefix rick-morty-app-client
+          npm run build --prefix rick-morty-app-client
 
-      # Step 8: Deploy React Build to S3
+      # Step 4: Deploy React Build to S3
       - name: Deploy React Build to S3
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
           aws s3 sync rick-morty-app-client/build s3://${{ secrets.BUCKET_NAME }} --delete
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+
+      # Step 5: Deploy Infrastructure
+      - name: Deploy Infrastructure
+        run: |
+          cd infra
+          npm install
+          npx cdk deploy --require-approval never
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+
+      # Step 6: Output CloudFront URL
+      - name: Output CloudFront URL
+        run: |
+          CLOUDFRONT_URL=$(aws cloudformation describe-stacks \
+            --stack-name InfraStack \
+            --query "Stacks[0].Outputs[?OutputKey=='CloudFrontURL'].OutputValue" \
+            --output text)
+          echo "CloudFront URL: $CLOUDFRONT_URL"
+          echo "CLOUDFRONT_URL=$CLOUDFRONT_URL" >> $GITHUB_ENV

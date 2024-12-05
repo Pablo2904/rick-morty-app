@@ -9,10 +9,11 @@ export class InfraStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const branchName = process.env.BRANCH_NAME || "default";
+    const bucketName = "rick-morty-bucket-fe"; // Nazwa bucketu S3
 
     // Tworzenie prywatnego bucketu S3
-    const bucket = new s3.Bucket(this, `ReactAppBucket-${branchName}`, {
+    const bucket = new s3.Bucket(this, `ReactAppBucket`, {
+      bucketName,
       websiteIndexDocument: "index.html", // Konfiguracja dla statycznej witryny
       websiteErrorDocument: "index.html",
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL, // Prywatny bucket
@@ -22,7 +23,7 @@ export class InfraStack extends Stack {
     // Konfiguracja CloudFront
     const distribution = new cloudfront.Distribution(
       this,
-      `ReactAppDistribution-${branchName}`,
+      `ReactAppDistribution`,
       {
         defaultBehavior: {
           origin: new origins.S3StaticWebsiteOrigin(bucket), // Użycie poprawnej klasy dla statycznej witryny
@@ -34,13 +35,13 @@ export class InfraStack extends Stack {
     );
 
     // Wyjście: URL dystrybucji CloudFront
-    new cdk.CfnOutput(this, `CloudFrontURL-${branchName}`, {
+    new cdk.CfnOutput(this, `CloudFrontURL`, {
       value: distribution.distributionDomainName,
       description: "URL to access the deployed React app",
     });
 
     // Wyjście: Nazwa bucketu S3
-    new cdk.CfnOutput(this, `BucketName-${branchName}`, {
+    new cdk.CfnOutput(this, `BucketName`, {
       value: bucket.bucketName,
       description: "Name of the S3 bucket for the React app",
     });
