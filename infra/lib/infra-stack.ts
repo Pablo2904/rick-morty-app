@@ -19,14 +19,21 @@ export class InfraStack extends Stack {
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL, // Prywatny bucket
       removalPolicy: cdk.RemovalPolicy.DESTROY, // Automatyczne usuwanie przy usuwaniu stacka
     });
-
+    const originAccessIdentity = new cloudfront.OriginAccessIdentity(
+      this,
+      "ReactAppOAI",
+      {
+        comment: "Access for CloudFront to S3 bucket",
+      }
+    );
+    bucket.grantRead(originAccessIdentity);
     // Konfiguracja CloudFront
     const distribution = new cloudfront.Distribution(
       this,
       `ReactAppDistribution`,
       {
         defaultBehavior: {
-          origin: new origins.S3StaticWebsiteOrigin(bucket), // Użycie poprawnej klasy dla statycznej witryny
+          origin: origins.S3BucketOrigin.withOriginAccessControl(bucket),
           cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED, // Standardowa polityka cache
           viewerProtocolPolicy:
             cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS, // Wymuszenie HTTPS
