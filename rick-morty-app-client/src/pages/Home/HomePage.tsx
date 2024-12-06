@@ -29,7 +29,7 @@ const HomePage: React.FC = () => {
             //nie dziala????
             //trzeba narpawic
           >
-            Idz do about albo nie idz
+            Idz do about albo nie idz xxx
           </Button>
         </Col>
       </Row>
