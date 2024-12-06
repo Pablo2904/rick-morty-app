@@ -10,6 +10,9 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
+    # Dynamiczne środowisko na podstawie brancha
+    environment: ${{ github.ref_name == 'main' && 'production' || startsWith(github.ref_name, 'release-') && 'staging' || 'development' }}
+
     steps:
       # Step 1: Checkout Code
       - name: Checkout Code
@@ -21,25 +24,13 @@ jobs:
         with:
           node-version: 18
 
-      # Step 3: Determine Environment
-      - name: Set Environment
-        id: set-env
-        run: |
-          if [[ "${{ github.ref_name }}" == "main" ]]; then
-            echo "environment=production" >> $GITHUB_ENV
-          elif [[ "${{ github.ref_name }}" == release-* ]]; then
-            echo "environment=staging" >> $GITHUB_ENV
-          else
-            echo "environment=development" >> $GITHUB_ENV
-          fi
-
-      # Step 4: Build React App
+      # Step 3: Build React App
       - name: Build React App
         run: |
           npm install --prefix rick-morty-app-client
           npm run build --prefix rick-morty-app-client
 
-      # Step 5: Deploy React Build to S3
+      # Step 4: Deploy React Build to S3
       - name: Deploy React Build to S3
         run: |
           aws s3 sync rick-morty-app-client/build s3://${{ secrets.BUCKET_NAME }} --delete
@@ -48,7 +39,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
 
-      # Step 6: Deploy Infrastructure
+      # Step 5: Deploy Infrastructure
       - name: Deploy Infrastructure
         run: |
           cd infra
@@ -59,7 +50,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
 
-      # Step 7: Output CloudFront URL
+      # Step 6: Output CloudFront URL
       - name: Output CloudFront URL
         run: |
           CLOUDFRONT_URL=$(aws cloudformation describe-stacks \
@@ -72,5 +63,3 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-
-    environment: ${{ env.environment }} # Dynamicznie przypisane środowisko
