@@ -13,7 +13,7 @@ import styles from "./HomePage.module.scss";
 const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>(); // Typed dispatch
   const value = useSelector((state: RootState) => state.example.value); // Access the value from state
-
+  console.log("AAaaaaaaa");
   return (
     <Container className={`mt-5 ${styles.container}`}>
       <Row className="text-center">
@@ -29,7 +29,7 @@ const HomePage: React.FC = () => {
             //nie dziala????
             //trzeba narpawic
           >
-            Idz do about
+            Idz do about albo nie idz xxx
           </Button>
         </Col>
       </Row>

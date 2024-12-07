@@ -4,10 +4,14 @@ on:
   push:
     branches:
       - release-*
+      - main
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
+    environment:
+      name: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
 
     steps:
       # Step 1: Checkout Code
@@ -18,40 +22,64 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: "22.x" # Najnowsza stabilna wersja LTS
 
-      # Step 3: Install Dependencies (React App)
-      - name: Install Dependencies (React App)
-        run: npm install --prefix rick-morty-app-client
+      - name: Cache Node Modules (Infrastructure)
+        uses: actions/cache@v3
+        with:
+          path: infra/node_modules
+          key: ${{ runner.os }}-infra-node-modules-${{ hashFiles('infra/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-infra-node-modules-
 
-      # Step 4: Run Tests (React App)
-      - name: Run Tests (React App)
-        run: npm test --prefix rick-morty-app-client
-
-      # Step 5: Build the React App
-      - name: Build React App
-        run: npm run build --prefix rick-morty-app-client
-
-      # Step 6: Install Dependencies (Infrastructure)
       - name: Install Dependencies (Infrastructure)
         run: npm install --prefix infra
 
-      # Step 7: Deploy Infrastructure
       - name: Deploy Infrastructure
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          BRANCH_NAME: ${{ github.ref_name }} # Ustawia nazwę brancha jako zmienną środowiskową
         run: |
           cd infra
-          npx cdk deploy --require-approval never
-
-      # Step 8: Deploy React Build to S3
-      - name: Deploy React Build to S3
+          npx cdk deploy --require-approval never --context environment=${{ github.ref_name == 'main' && 'production' || 'staging' }}
+          OUTPUTS=$(npx cdk deploy --require-approval never --context environment=${{ github.ref_name == 'main' && 'production' || 'staging' }})
+          CLOUDFRONT_ID=$(echo "$OUTPUTS" | grep 'CloudFrontID' | awk '{print $NF}')
+          CLOUDFRONT_URL=$(echo "$OUTPUTS" | grep 'CloudFrontURL' | awk '{print $NF}')
+          echo "CLOUDFRONT_ID=$CLOUDFRONT_ID" >> $GITHUB_ENV
+          echo "CLOUDFRONT_URL=$CLOUDFRONT_URL" >> $GITHUB_ENV
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
+
+      - name: Cache Node Modules (React App)
+        uses: actions/cache@v3
+        with:
+          path: rick-morty-app-client/node_modules
+          key: ${{ runner.os }}-client-node-modules-${{ hashFiles('rick-morty-app-client/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-client-node-modules-
+      - name: Install Dependencies (React App)
+        run: npm install --prefix rick-morty-app-client
+
+      - name: Build React App
+        run: npm run build --prefix rick-morty-app-client
+
+      - name: Deploy React Build to S3
         run: |
-          aws s3 sync rick-morty-app-client/build s3://${{ secrets.BUCKET_NAME }} --delete
+          aws s3 sync rick-morty-app-client/build s3://${{ github.ref_name == 'main' && 'rick-morty-bucket-production' || 'rick-morty-bucket-staging' }} --delete
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+
+      # Step 6: Invalidate CloudFront Cache
+      - name: Invalidate CloudFront Cache
+        run: |
+          aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/*"
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+
+      # Step 7: Output CloudFront URL
+      - name: Output CloudFront URL
+        run: |
+          echo "CloudFront URL: $CLOUDFRONT_URL"
