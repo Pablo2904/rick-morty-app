@@ -16,7 +16,8 @@ export class InfraStack extends Stack {
       bucketName,
       websiteIndexDocument: "index.html", // Konfiguracja dla statycznej witryny
       websiteErrorDocument: "index.html",
-      blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL, // Prywatny bucket
+      // blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL, // Prywatny bucket
+      blockPublicAccess: s3.BlockPublicAccess.BLOCK_ACLS, // Ustawienie blokady publicznej dla ACL
       removalPolicy: cdk.RemovalPolicy.DESTROY, // Automatyczne usuwanie przy usuwaniu stacka
       publicReadAccess: true,
     });
@@ -57,6 +58,21 @@ export class InfraStack extends Stack {
         ],
       }
     );
+
+    // const distribution = new cloudfront.CloudFrontWebDistribution(
+    //   this,
+    //   "ReactAppDistribution",
+    //   {
+    //     originConfigs: [
+    //       {
+    //         s3OriginSource: {
+    //           s3BucketSource: bucket,
+    //         },
+    //         behaviors: [{ isDefaultBehavior: true }],
+    //       },
+    //     ],
+    //   }
+    // );
 
     // Wyjście: URL dystrybucji CloudFront
     new cdk.CfnOutput(this, `CloudFrontURL`, {
