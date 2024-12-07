@@ -22,8 +22,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "lts/*" # Najnowsza stabilna wersja LTS
-          cache: "npm" # Automatyczne cachowanie node_modules
+          node-version: "latest" # Najnowsza stabilna wersja LTS
 
       - name: Cache Node Modules (Infrastructure)
         uses: actions/cache@v3
