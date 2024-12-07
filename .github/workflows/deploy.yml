@@ -22,7 +22,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "latest" # Najnowsza stabilna wersja LTS
+          node-version: "22.x" # Najnowsza stabilna wersja LTS
 
       - name: Cache Node Modules (Infrastructure)
         uses: actions/cache@v3
