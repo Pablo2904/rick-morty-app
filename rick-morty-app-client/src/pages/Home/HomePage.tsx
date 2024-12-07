@@ -53,7 +53,6 @@ const HomePage: React.FC = () => {
             Increment by 5
           </Button>
         </Col>
-        <Col>DUPA</Col>
       </Row>
     </Container>
   );

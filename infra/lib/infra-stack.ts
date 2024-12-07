@@ -39,8 +39,8 @@ export class InfraStack extends Stack {
             originAccessIdentity,
           }),
           cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED, // Standardowa polityka cache
-          // viewerProtocolPolicy:
-          //   cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS, // Wymuszenie HTTPS
+          viewerProtocolPolicy:
+            cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS, // Wymuszenie HTTPS
         },
         errorResponses: [
           {
@@ -58,21 +58,6 @@ export class InfraStack extends Stack {
         ],
       }
     );
-
-    // const distribution = new cloudfront.CloudFrontWebDistribution(
-    //   this,
-    //   "ReactAppDistribution",
-    //   {
-    //     originConfigs: [
-    //       {
-    //         s3OriginSource: {
-    //           s3BucketSource: bucket,
-    //         },
-    //         behaviors: [{ isDefaultBehavior: true }],
-    //       },
-    //     ],
-    //   }
-    // );
 
     // Wyjście: URL dystrybucji CloudFront
     new cdk.CfnOutput(this, `CloudFrontURL`, {
