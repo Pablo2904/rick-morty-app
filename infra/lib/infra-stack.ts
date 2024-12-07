@@ -36,9 +36,9 @@ export class InfraStack extends Stack {
           origin: new origins.S3Origin(bucket, {
             originAccessIdentity,
           }),
-          cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED, // Standardowa polityka cache
-          viewerProtocolPolicy:
-            cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS, // Wymuszenie HTTPS
+          cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED, // Standardowa polityka cache
+          // viewerProtocolPolicy:
+          //   cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS, // Wymuszenie HTTPS
         },
         errorResponses: [
           {
