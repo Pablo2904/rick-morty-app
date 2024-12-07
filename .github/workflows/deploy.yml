@@ -21,10 +21,20 @@ jobs:
         with:
           node-version: 18
 
+      - name: Cache Node Modules (Infrastructure)
+        uses: actions/cache@v3
+        with:
+          path: infra/node_modules
+          key: ${{ runner.os }}-infra-node-modules-${{ hashFiles('infra/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-infra-node-modules-
+
+      - name: Install Dependencies (Infrastructure)
+        run: npm install --prefix infra
+
       - name: Deploy Infrastructure
         run: |
           cd infra
-          npm install
           npx cdk deploy --require-approval never --context environment=${{ github.ref_name == 'main' && 'production' || 'staging' }}
           OUTPUTS=$(npx cdk deploy --require-approval never --context environment=${{ github.ref_name == 'main' && 'production' || 'staging' }})
           CLOUDFRONT_ID=$(echo "$OUTPUTS" | grep 'CloudFrontID' | awk '{print $NF}')
@@ -36,13 +46,19 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
 
-      # Step 4: Build React App
-      - name: Build React App
-        run: |
-          npm install --prefix rick-morty-app-client
-          npm run build --prefix rick-morty-app-client
+      - name: Cache Node Modules (React App)
+        uses: actions/cache@v3
+        with:
+          path: rick-morty-app-client/node_modules
+          key: ${{ runner.os }}-client-node-modules-${{ hashFiles('rick-morty-app-client/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-client-node-modules-
+      - name: Install Dependencies (React App)
+        run: npm install --prefix rick-morty-app-client
 
-      # Step 5: Deploy React Build to S3
+      - name: Build React App
+        run: npm run build --prefix rick-morty-app-client
+
       - name: Deploy React Build to S3
         run: |
           aws s3 sync rick-morty-app-client/build s3://${{ github.ref_name == 'main' && 'rick-morty-bucket-production' || 'rick-morty-bucket-staging' }} --delete
