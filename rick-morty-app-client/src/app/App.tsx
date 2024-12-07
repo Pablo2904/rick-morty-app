@@ -8,6 +8,7 @@ import { ThemeProvider } from "../context/ThemeContext/ThemeContext";
 
 //wszystkie providery i wrappery tutaj
 const App: React.FC = () => {
+  console.log("PAWEL");
   return (
     <Provider store={store}>
       <ThemeProvider>
