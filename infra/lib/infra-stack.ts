@@ -6,20 +6,19 @@ import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
 import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
 
 // Rozszerzenie StackProps o environment
-interface ExtendedStackProps extends cdk.StackProps {
+interface ExtendedStackProps extends StackProps {
   environment: string;
 }
 
 export class InfraStack extends Stack {
   constructor(scope: Construct, id: string, props: ExtendedStackProps) {
     super(scope, id, props);
-    const { environment } = props;
+    const environment = props.environment;
     const bucketName = `rick-morty-bucket-${environment}`; // Dynamiczna nazwa bucketu
 
-    // Tworzenie prywatnego bucketu S3
     const bucket = new s3.Bucket(this, `ReactAppBucket`, {
       bucketName,
-      websiteIndexDocument: "index.html", // Konfiguracja dla statycznej witryny
+      websiteIndexDocument: "index.html",
       websiteErrorDocument: "index.html",
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ACLS,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
@@ -30,7 +29,7 @@ export class InfraStack extends Stack {
       this,
       "ReactAppOAI",
       {
-        comment: "Access for CloudFront to S3 bucket",
+        comment: `Access for CloudFront to S3 bucket (${environment})`,
       }
     );
     bucket.grantRead(originAccessIdentity);
@@ -43,19 +42,11 @@ export class InfraStack extends Stack {
           origin: new origins.S3Origin(bucket, {
             originAccessIdentity,
           }),
-          cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED, // Standardowa polityka cache
-          viewerProtocolPolicy:
-            cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS, // Wymuszenie HTTPS
+          cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
         },
         errorResponses: [
           {
             httpStatus: 403,
-            responseHttpStatus: 200,
-            responsePagePath: "/index.html",
-            ttl: cdk.Duration.seconds(0),
-          },
-          {
-            httpStatus: 404,
             responseHttpStatus: 200,
             responsePagePath: "/index.html",
             ttl: cdk.Duration.seconds(0),
