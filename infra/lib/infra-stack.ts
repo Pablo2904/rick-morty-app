@@ -18,6 +18,7 @@ export class InfraStack extends Stack {
       websiteErrorDocument: "index.html",
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL, // Prywatny bucket
       removalPolicy: cdk.RemovalPolicy.DESTROY, // Automatyczne usuwanie przy usuwaniu stacka
+      publicReadAccess: true,
     });
     const originAccessIdentity = new cloudfront.OriginAccessIdentity(
       this,
