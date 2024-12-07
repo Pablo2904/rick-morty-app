@@ -21,14 +21,12 @@ jobs:
         with:
           node-version: 18
 
-      # Step 3: Deploy Infrastructure
       - name: Deploy Infrastructure
         run: |
           cd infra
           npm install
-          OUTPUTS=$(npx cdk deploy --require-approval never \
-            --context environment=${{ github.ref_name == 'main' && 'production' || 'staging' }} \
-            | tee /dev/tty)
+          npx cdk deploy --require-approval never --context environment=${{ github.ref_name == 'main' && 'production' || 'staging' }}
+          OUTPUTS=$(npx cdk deploy --require-approval never --context environment=${{ github.ref_name == 'main' && 'production' || 'staging' }})
           CLOUDFRONT_ID=$(echo "$OUTPUTS" | grep 'CloudFrontID' | awk '{print $NF}')
           CLOUDFRONT_URL=$(echo "$OUTPUTS" | grep 'CloudFrontURL' | awk '{print $NF}')
           echo "CLOUDFRONT_ID=$CLOUDFRONT_ID" >> $GITHUB_ENV
