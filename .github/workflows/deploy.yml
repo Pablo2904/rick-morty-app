@@ -10,9 +10,6 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
-    # Dynamiczne środowisko na podstawie brancha
-    environment: ${{ github.ref_name == 'main' && 'production' || startsWith(github.ref_name, 'release-') && 'staging' || 'development' }}
-
     steps:
       # Step 1: Checkout Code
       - name: Checkout Code
@@ -24,36 +21,41 @@ jobs:
         with:
           node-version: 18
 
-      # Step 3: Build React App
+      # Step 3: Deploy Infrastructure
+           - name: Deploy Infrastructure
+        run: |
+          cd infra
+          npm install
+          OUTPUTS=$(npx cdk deploy --require-approval never --parameters environment=${{ github.ref_name == 'main' && 'production' || 'staging' }})
+          CLOUDFRONT_ID=$(echo "$OUTPUTS" | grep 'CloudFrontID' | awk '{print $NF}')
+          CLOUDFRONT_URL=$(echo "$OUTPUTS" | grep 'CloudFrontURL' | awk '{print $NF}')
+          echo "CLOUDFRONT_ID=$CLOUDFRONT_ID" >> $GITHUB_ENV
+          echo "CLOUDFRONT_URL=$CLOUDFRONT_URL" >> $GITHUB_ENV
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+
+
+      # Step 4: Build React App
       - name: Build React App
         run: |
           npm install --prefix rick-morty-app-client
           npm run build --prefix rick-morty-app-client
 
-      # Step 4: Deploy React Build to S3
+      # Step 5: Deploy React Build to S3
       - name: Deploy React Build to S3
         run: |
-          aws s3 sync rick-morty-app-client/build s3://${{ secrets.BUCKET_NAME }} --delete
+          aws s3 sync rick-morty-app-client/build s3://${{ github.ref_name == 'main' && 'rick-morty-bucket-production' || 'rick-morty-bucket-staging' }} --delete
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
 
-      # Step 5: Invalidate CloudFront Cache
+      # Step 6: Invalidate CloudFront Cache
       - name: Invalidate CloudFront Cache
         run: |
-          aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-
-      # Step 6: Deploy Infrastructure
-      - name: Deploy Infrastructure
-        run: |
-          cd infra
-          npm install
-          npx cdk deploy --require-approval never
+          aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/*"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -62,13 +64,4 @@ jobs:
       # Step 7: Output CloudFront URL
       - name: Output CloudFront URL
         run: |
-          CLOUDFRONT_URL=$(aws cloudformation describe-stacks \
-            --stack-name InfraStack \
-            --query "Stacks[0].Outputs[?OutputKey=='CloudFrontURL'].OutputValue" \
-            --output text)
-          echo "CloudFront URL: $CLOUDFRONT_URL"
-          echo "CLOUDFRONT_URL=$CLOUDFRONT_URL" >> $GITHUB_ENV
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
+          echo "CloudFront URL: $CLOUDFRONT_ID"

@@ -4,12 +4,15 @@ import { Construct } from "constructs";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
 import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
-
+interface InfraStackProps extends StackProps {
+  environment: string; // "production" | "staging"
+}
 export class InfraStack extends Stack {
-  constructor(scope: Construct, id: string, props?: StackProps) {
+  constructor(scope: Construct, id: string, props?: InfraStackProps) {
     super(scope, id, props);
 
-    const bucketName = "rick-morty-bucket-fe"; // Nazwa bucketu S3
+    const environment = props?.environment || "staging"; // Domyślnie "staging"
+    const bucketName = `rick-morty-bucket-${environment}`; // Nazwa bucketu dla środowiska
 
     // Tworzenie prywatnego bucketu S3
     const bucket = new s3.Bucket(this, `ReactAppBucket`, {
@@ -32,13 +35,13 @@ export class InfraStack extends Stack {
     // Konfiguracja CloudFront
     const distribution = new cloudfront.Distribution(
       this,
-      `ReactAppDistribution`,
+      `ReactAppDistribution-${environment}`,
       {
         defaultBehavior: {
           origin: new origins.S3Origin(bucket, {
             originAccessIdentity,
           }),
-          cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED, // Standardowa polityka cache
+          cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED, // Standardowa polityka cache
           viewerProtocolPolicy:
             cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS, // Wymuszenie HTTPS
         },
@@ -59,16 +62,19 @@ export class InfraStack extends Stack {
       }
     );
 
-    // Wyjście: URL dystrybucji CloudFront
+    new cdk.CfnOutput(this, `CloudFrontID`, {
+      value: distribution.distributionId,
+      description: `CloudFront ID for ${environment} environment`,
+    });
     new cdk.CfnOutput(this, `CloudFrontURL`, {
       value: distribution.distributionDomainName,
-      description: "URL to access the deployed React app",
+      description: `CloudFront URL for ${environment} environment`,
     });
 
     // Wyjście: Nazwa bucketu S3
     new cdk.CfnOutput(this, `BucketName`, {
       value: bucket.bucketName,
-      description: "Name of the S3 bucket for the React app",
+      description: `Bucket name for ${environment} environment`,
     });
   }
 }
