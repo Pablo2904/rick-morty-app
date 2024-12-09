@@ -9,6 +9,7 @@ import {
   incrementByAmount,
 } from "../../state/exampleSlice/exampleSlice";
 import styles from "./HomePage.module.scss";
+import { Link } from "react-router";
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>(); // Typed dispatch
@@ -23,14 +24,16 @@ const HomePage: React.FC = () => {
             Explore characters, locations, and episodes from the Rick and Morty
             universe.
           </p>
-          <Button
-            variant="primary"
-            size="lg"
-            //nie dziala????
-            //trzeba narpawic
-          >
-            Idz do about albo nie idz xxx
-          </Button>
+          <Link to="/about">
+            <Button
+              variant="primary"
+              size="lg"
+              //nie dziala????
+              //trzeba narpawic
+            >
+              Idź do About This App
+            </Button>
+          </Link>
         </Col>
       </Row>
       <Row className="mt-3">
