@@ -9,11 +9,13 @@ import {
   incrementByAmount,
 } from "../../state/exampleSlice/exampleSlice";
 import styles from "./HomePage.module.scss";
+import { useNavigate } from "react-router-dom";
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>(); // Typed dispatch
   const value = useSelector((state: RootState) => state.example.value); // Access the value from state
-  console.log("AAaaaaaaa");
+  const navigate = useNavigate();
+
   return (
     <Container className={`mt-5 ${styles.container}`}>
       <Row className="text-center">
@@ -23,13 +25,13 @@ const HomePage: React.FC = () => {
             Explore characters, locations, and episodes from the Rick and Morty
             universe.
           </p>
+
           <Button
+            onClick={() => navigate("/about")}
             variant="primary"
             size="lg"
-            //nie dziala????
-            //trzeba narpawic
           >
-            Idz do about albo nie idz xxx
+            Idź do About This App
           </Button>
         </Col>
       </Row>
