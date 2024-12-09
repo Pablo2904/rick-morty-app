@@ -5,8 +5,10 @@ import { useNavigate } from "react-router-dom";
 const NotFoundPage: React.FC = () => {
   const navigate = useNavigate();
 
+  const redirectDelay = 5000;
+
   useEffect(() => {
-    const timer = setTimeout(() => navigate("/"), 5000);
+    const timer = setTimeout(() => navigate("/"), redirectDelay);
     return () => clearTimeout(timer);
   }, [navigate]);
 
