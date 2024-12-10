@@ -1,0 +1,36 @@
+@use "../../../styles/mixins" as *;
+
+.avatar {
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  transition: all 0.3s ease; //płynne skalowanie przy zmianie rozmiaru obrazka
+
+  //definiowanie rozmiarów
+  &.small {
+    width: 40px;
+    height: 40px;
+    @include respond(small) {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  &.medium {
+    width: 60px;
+    height: 60px;
+    @include respond(medium) {
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+  &.large {
+    width: 100px;
+    height: 100px;
+    @include respond(large) {
+      width: 80px;
+      height: 80px;
+    }
+  }
+}
