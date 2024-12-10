@@ -26,7 +26,5 @@ $spacing-small: 8px;
 $spacing-medium: 16px;
 $spacing-large: 24px;
 
-//Transitions
-$transitions-duration: 0.3s;
-$transition-timing-function: ease;
-$transition-property: all;
+//Animations for transitions
+$transition: all 0.3s ease;

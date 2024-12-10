@@ -5,8 +5,7 @@
   object-fit: cover;
   display: block;
 
-  transition: $transition-property $transitions-duration
-    $transition-timing-function;
+  transition: $transition;
 
   &.small {
     width: 40px;
