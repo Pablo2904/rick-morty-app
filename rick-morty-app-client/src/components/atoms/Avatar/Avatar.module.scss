@@ -4,9 +4,10 @@
   border-radius: 50%;
   object-fit: cover;
   display: block;
-  transition: all 0.3s ease; //płynne skalowanie przy zmianie rozmiaru obrazka
 
-  //definiowanie rozmiarów
+  transition: $transition-property $transitions-duration
+    $transition-timing-function;
+
   &.small {
     width: 40px;
     height: 40px;
