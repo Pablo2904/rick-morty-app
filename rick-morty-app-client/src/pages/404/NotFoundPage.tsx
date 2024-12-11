@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const NotFoundPage: React.FC = () => {
   const navigate = useNavigate();
+
+  const redirectDelay = 5000;
+
+  useEffect(() => {
+    const timer = setTimeout(() => navigate("/"), redirectDelay);
+    return () => clearTimeout(timer);
+  }, [navigate]);
 
   return (
     <Container className="text-center mt-5">
