@@ -7,6 +7,7 @@ import React, {
   useCallback,
   useEffect,
 } from "react";
+import "./Theme.module.scss";
 
 type Theme = "light" | "dark";
 
@@ -20,7 +21,9 @@ const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setTheme] = useState<Theme>(
+    (localStorage.getItem("theme") as Theme) || "light"
+  );
 
   const toggleTheme = useCallback(() => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
@@ -30,6 +33,8 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
 
   // Dynamically update the `body` class when the theme changes
   useEffect(() => {
+    localStorage.setItem("theme", theme);
+
     document.body.className = theme === "light" ? "light-theme" : "dark-theme";
   }, [theme]);
 
