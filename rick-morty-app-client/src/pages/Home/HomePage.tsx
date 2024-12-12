@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 
-import { RootState, AppDispatch } from "../../state/store/store";
+import { RootState, AppDispatch } from "state/store/store";
 import {
   increment,
   decrement,
