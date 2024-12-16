@@ -2,15 +2,15 @@ import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 
-import { RootState, AppDispatch } from "../../state/store/store";
+import { RootState, AppDispatch } from "state/store/store";
 import {
   increment,
   decrement,
   incrementByAmount,
-} from "../../state/exampleSlice/exampleSlice";
+} from "state/exampleSlice/exampleSlice";
 import styles from "./HomePage.module.scss";
 import { useNavigate } from "react-router-dom";
-import Header from "../../components/molecules/Header/Header";
+import Header from "components/molecules/Header/Header";
 
 //i18next-react
 import { useTranslation } from "react-i18next";
