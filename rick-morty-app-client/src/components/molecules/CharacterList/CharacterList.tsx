@@ -29,6 +29,7 @@ export const CharacterList = () => {
   return (
     <div>
       <h2>List of Characters:</h2>
+
       <ul>
         {characters.map((character) => (
           <li key={character.id}>
