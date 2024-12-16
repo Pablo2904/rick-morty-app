@@ -1,6 +1,5 @@
 import axios from "axios";
 
-//Instancja Axios
 const axiosInstance = axios.create({
   baseURL: "https://rickandmortyapi.com/api",
   headers: {
@@ -8,7 +7,6 @@ const axiosInstance = axios.create({
   },
 });
 
-//Request Interceptor
 axios.interceptors.request.use(
   (config) => {
     console.log("Wysyłanie żądania: ");
@@ -20,7 +18,6 @@ axios.interceptors.request.use(
   }
 );
 
-//Response Interceptor
 axios.interceptors.response.use(
   (response) => response,
   (error) => {

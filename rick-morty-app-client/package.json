@@ -8,6 +8,7 @@
     "@reduxjs/toolkit": "^2.4.0",
     "@svgr/webpack": "^5.5.0",
     "@types/react-router-dom": "^5.3.3",
+    "axios": "^1.7.9",
     "babel-jest": "^27.4.2",
     "babel-loader": "^8.2.3",
     "babel-plugin-named-asset-import": "^0.3.8",
