@@ -1,19 +1,20 @@
 import React from "react";
 import { Container, Card, ListGroup } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 const AboutPage: React.FC = () => {
+  const { t }: { t: (key: string) => string } = useTranslation();
+
   return (
     <Container className="mt-5">
       <Card>
-        <Card.Header as="h2">About This App</Card.Header>
+        <Card.Header as="h2">{t("aboutPage.header")}</Card.Header>
         <Card.Body>
-          <Card.Text>
-            This app leverages the Rick and Morty API to provide:
-          </Card.Text>
+          <Card.Text>{t("aboutPage.cardText")}</Card.Text>
           <ListGroup variant="flush">
-            <ListGroup.Item>Character information</ListGroup.Item>
-            <ListGroup.Item>Episode details</ListGroup.Item>
-            <ListGroup.Item>Locations across the universe</ListGroup.Item>
+            <ListGroup.Item>{t("aboutPage.listGroupItem1")}</ListGroup.Item>
+            <ListGroup.Item>{t("aboutPage.listGroupItem2")}</ListGroup.Item>
+            <ListGroup.Item>{t("aboutPage.listGroupItem3")}</ListGroup.Item>
           </ListGroup>
         </Card.Body>
       </Card>

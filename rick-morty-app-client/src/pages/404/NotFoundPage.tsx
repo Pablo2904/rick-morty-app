@@ -1,9 +1,14 @@
+import { t } from "i18next";
 import React, { useEffect } from "react";
 import { Container, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
+import { useTranslation } from "react-i18next";
+
 const NotFoundPage: React.FC = () => {
   const navigate = useNavigate();
+
+  const { t }: { t: (key: string) => string } = useTranslation();
 
   const redirectDelay = 5000;
 
@@ -15,9 +20,9 @@ const NotFoundPage: React.FC = () => {
   return (
     <Container className="text-center mt-5">
       <h1 className="display-3 text-danger">404</h1>
-      <p className="lead">Oops! The page you're looking for doesn't exist.</p>
+      <p className="lead">{t("notFoundPage.text")}</p>
       <Button variant="primary" onClick={() => navigate("/")}>
-        Go Back Home
+        {t("notFoundPage.goHomeButton")}
       </Button>
     </Container>
   );

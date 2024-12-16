@@ -5,15 +5,19 @@ import AppRouter from "../router/AppRouter";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/globals.scss";
 import { ThemeProvider } from "../context/ThemeContext/ThemeContext";
+import i18n from "components/molecules/LanguageToggle/i18n";
+import { I18nextProvider } from "react-i18next";
 
 //wszystkie providery i wrappery tutaj
 const App: React.FC = () => {
   return (
-    <Provider store={store}>
-      <ThemeProvider>
-        <AppRouter />
-      </ThemeProvider>
-    </Provider>
+    <I18nextProvider i18n={i18n}>
+      <Provider store={store}>
+        <ThemeProvider>
+          <AppRouter />
+        </ThemeProvider>
+      </Provider>
+    </I18nextProvider>
   );
 };
 

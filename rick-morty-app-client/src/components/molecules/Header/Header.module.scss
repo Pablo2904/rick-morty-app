@@ -1,4 +1,9 @@
 .headerContainer {
   background-color: var(--primary-color);
   color: var(--text-primary);
+
+  h1 {
+    font-size: 20px;
+    font-weight: bold;
+  }
 }

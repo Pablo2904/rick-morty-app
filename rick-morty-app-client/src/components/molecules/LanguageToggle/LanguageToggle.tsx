@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 
 const LanguageToggle = () => {
@@ -13,7 +12,7 @@ const LanguageToggle = () => {
 
   return (
     <div>
-      <p>{t("welcome")}</p>
+      <p>{t("header.welcomeMessage")}</p>
       <button
         onClick={() => changeLanguage("en")}
         aria-label="Switch to English"
