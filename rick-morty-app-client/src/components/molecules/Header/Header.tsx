@@ -1,10 +1,10 @@
 import React from "react";
-import ThemeToggle from "../ThemeToggle/ThemeToggle";
+import ThemeToggle from "components/molecules/ThemeToggle/ThemeToggle";
 import { Stack } from "react-bootstrap";
 import style from "./Header.module.scss";
-import LanguageToggle from "../LanguageToggle/LanguageToggle";
+import LanguageToggle from "components/molecules/LanguageToggle/LanguageToggle";
 import { useTranslation } from "react-i18next";
-import "../LanguageToggle/i18n";
+import "components/molecules/LanguageToggle/i18n";
 
 export default function Header() {
   const { t }: { t: (key: string) => string } = useTranslation();
