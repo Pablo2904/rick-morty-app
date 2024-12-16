@@ -1,5 +1,5 @@
 import React from "react";
-import { useTheme } from "../../../context/ThemeContext/ThemeContext";
+import { useTheme } from "context/ThemeContext/ThemeContext";
 import Form from "react-bootstrap/Form";
 
 const ThemeToggle = () => {
