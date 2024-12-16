@@ -9,7 +9,7 @@ interface BadgeProps {
 
 const Badge: React.FC<BadgeProps> = ({ variant = "unknown", children }) => {
   return (
-    <span className={`${styles.badge} ${styles[variant.toLowerCase()]}`}>
+    <span className={`${styles.badge} ${styles[variant.toLowerCase()]} mt-3`}>
       {children}
     </span>
   );
