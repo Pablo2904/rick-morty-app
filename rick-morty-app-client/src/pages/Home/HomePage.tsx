@@ -11,6 +11,7 @@ import {
 import styles from "./HomePage.module.scss";
 import { useNavigate } from "react-router-dom";
 import Header from "components/molecules/Header/Header";
+import ThemedTypography from "components/atoms/ThemedTypography/ThemedTypography";
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>(); // Typed dispatch
@@ -23,18 +24,21 @@ const HomePage: React.FC = () => {
       <Container className={`mt-5 ${styles.container}`}>
         <Row className="text-center">
           <Col>
-            <h1 className="display-4">Rick and Morty App</h1>
-            <p className={`lead ${styles.title}`}>
-              Explore characters, locations, and episodes from the Rick and
-              Morty universe.
-            </p>
-
+            <ThemedTypography variant="h1" size="Large">
+              Test Large
+            </ThemedTypography>
+            <ThemedTypography variant="h2" size="Medium">
+              Test Medium
+            </ThemedTypography>
+            <ThemedTypography variant="h3" size="Small">
+              Test Small
+            </ThemedTypography>
             <Button
               onClick={() => navigate("/about")}
               variant="primary"
               size="lg"
             >
-              Idź do About This App
+              <ThemedTypography>Idź do About This App</ThemedTypography>
             </Button>
           </Col>
         </Row>
