@@ -11,6 +11,7 @@ import {
 import styles from "./HomePage.module.scss";
 import { useNavigate } from "react-router-dom";
 import Header from "components/molecules/Header/Header";
+import ThemedTypography from "components/atoms/ThemedTypography/ThemedTypography";
 
 //i18next-react
 import { useTranslation } from "react-i18next";
@@ -31,12 +32,24 @@ const HomePage: React.FC = () => {
             <h1 className="display-4">{t("homePage.title")}</h1>
             <p className={`lead ${styles.title}`}>{t("homePage.content")}</p>
 
+            <ThemedTypography variant="h1" size="Large">
+              Test Large
+            </ThemedTypography>
+            <ThemedTypography variant="h2" size="Medium">
+              Test Medium
+            </ThemedTypography>
+            <ThemedTypography variant="h3" size="Small">
+              Test Small
+            </ThemedTypography>
+
             <Button
               onClick={() => navigate("/about")}
               variant="primary"
               size="lg"
             >
-              {t("homePage.goToAboutButton")}
+              <ThemedTypography>
+                {t("homePage.goToAboutButton")}
+              </ThemedTypography>
             </Button>
           </Col>
         </Row>
