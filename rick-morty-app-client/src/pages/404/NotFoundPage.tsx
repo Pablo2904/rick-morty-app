@@ -1,4 +1,3 @@
-import { t } from "i18next";
 import React, { useEffect } from "react";
 import { Container, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
