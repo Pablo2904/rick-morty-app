@@ -29,17 +29,14 @@ const HomePage: React.FC = () => {
       <Container className={`mt-5 ${styles.container}`}>
         <Row className="text-center">
           <Col>
-            <h1 className="display-4">{t("homePage.title")}</h1>
-            <p className={`lead ${styles.title}`}>{t("homePage.content")}</p>
-
             <ThemedTypography variant="h1" size="Large">
-              Test Large
+              {t("homePage.testLarge")}
             </ThemedTypography>
             <ThemedTypography variant="h2" size="Medium">
-              Test Medium
+              {t("homePage.testMedium")}
             </ThemedTypography>
             <ThemedTypography variant="h3" size="Small">
-              Test Small
+              {t("homePage.testSmall")}
             </ThemedTypography>
 
             <Button

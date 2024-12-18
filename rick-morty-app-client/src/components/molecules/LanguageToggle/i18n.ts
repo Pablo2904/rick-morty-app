@@ -12,9 +12,9 @@ const resources = {
         darkMode: "Dark",
       },
       homePage: {
-        title: "Rick and Morty App",
-        content:
-          "Explore characters, locations, and episodes from the Rick and Morty universe.",
+        testLarge: "Test Large",
+        testMedium: "Test Medium",
+        testSmall: "Test Small",
         goToAboutButton: "Go to About This Page",
         currentValue: "Current Value: ",
         incrementButton: "Increment",
@@ -44,9 +44,9 @@ const resources = {
         darkMode: "Oscuro",
       },
       homePage: {
-        title: "Aplicación de Rick y Morty",
-        content:
-          "Explora personajes, lugares y episodios del universo de Rick y Morty.",
+        testLarge: "Prueba Grande",
+        testMedium: "Prueba Media",
+        testSmall: "Prueba Pequeña",
         goToAboutButton: "Ir a Acerca de esta página",
         currentValue: "Valor Actual: ",
         incrementButton: "Incremento",
