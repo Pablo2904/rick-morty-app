@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchCharacters } from "api/characterApi";
+import { getCharacters } from "api/characterApi";
 import { Character } from "types/Character";
 import Avatar from "components/atoms/Avatar/Avatar";
 
@@ -11,7 +11,7 @@ export const CharacterList = () => {
   useEffect(() => {
     const loadCharacters = async () => {
       try {
-        const data = await fetchCharacters();
+        const data = await getCharacters();
         setCharacters(data);
       } catch (err) {
         setError("Nie udało się załadować postaci");
