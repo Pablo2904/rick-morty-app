@@ -1,6 +1,14 @@
 {
   "compilerOptions": {
-    "baseUrl": "src", // Sets the base directory for resolving paths
+    "baseUrl": "src",
+    "paths": {
+      "@components/*": ["components/*"],
+      "@styles/*": ["styles/*"],
+      "@context/*": ["context/*"],
+      "@pages/*": ["pages/*"],
+      "@router/*": ["router/*"],
+      "@state/*": ["state/*"]
+    },
 
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
