@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./StatusBadge.module.scss";
-import { CharacterStatus } from "../../../types/CharactersTypes";
+import { CharacterStatus } from "types/CharactersTypes";
 
 interface BadgeProps {
   variant?: CharacterStatus;
