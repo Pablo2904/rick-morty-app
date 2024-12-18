@@ -1,3 +1,4 @@
+import ThemedTypography from "components/atoms/ThemedTypography/ThemedTypography";
 import React, { useEffect } from "react";
 import { Container, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -14,10 +15,14 @@ const NotFoundPage: React.FC = () => {
 
   return (
     <Container className="text-center mt-5">
-      <h1 className="display-3 text-danger">404</h1>
-      <p className="lead">Oops! The page you're looking for doesn't exist.</p>
+      <ThemedTypography variant="h1" size="Large" className="text-danger">
+        404
+      </ThemedTypography>
+      <ThemedTypography>
+        Oops! The page you're looking for doesn't exist.
+      </ThemedTypography>
       <Button variant="primary" onClick={() => navigate("/")}>
-        Go Back Home
+        <ThemedTypography>Go Back Home</ThemedTypography>
       </Button>
     </Container>
   );
