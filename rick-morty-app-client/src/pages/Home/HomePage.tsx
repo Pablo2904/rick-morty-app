@@ -12,6 +12,7 @@ import styles from "./HomePage.module.scss";
 import { useNavigate } from "react-router-dom";
 import Header from "components/molecules/Header/Header";
 import ThemedTypography from "components/atoms/ThemedTypography/ThemedTypography";
+import Avatar from "components/atoms/Avatar/Avatar";
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>(); // Typed dispatch
