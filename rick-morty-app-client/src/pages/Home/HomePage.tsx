@@ -19,8 +19,8 @@ const HomePage: React.FC = () => {
   const value = useSelector((state: RootState) => state.example.value); // Access the value from state
   const navigate = useNavigate();
 
-  //Wywołanie toast
-  const { showPredefinedToast } = useToast();
+  //TOAST
+  // const { showPredefinedToast } = useToast();
 
   return (
     <>
@@ -66,7 +66,7 @@ const HomePage: React.FC = () => {
               Increment by 5
             </Button>
           </Col>
-          <button onClick={() => showPredefinedToast("infoMessage")}>
+          {/* <button onClick={() => showPredefinedToast("infoMessage")}>
             Show Info Toast
           </button>
           <button onClick={() => showPredefinedToast("successMessage")}>
@@ -74,7 +74,7 @@ const HomePage: React.FC = () => {
           </button>
           <button onClick={() => showPredefinedToast("errorMessage")}>
             Show Error Toast
-          </button>
+          </button> */}
         </Row>
       </Container>
     </>
