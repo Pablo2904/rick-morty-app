@@ -20,7 +20,7 @@ const HomePage: React.FC = () => {
   const navigate = useNavigate();
 
   //Wywołanie toast
-  const { showToast } = useToast();
+  const { showPredefinedToast } = useToast();
 
   return (
     <>
@@ -66,25 +66,13 @@ const HomePage: React.FC = () => {
               Increment by 5
             </Button>
           </Col>
-          <button
-            onClick={() =>
-              showToast("info", "This is an informational message!")
-            }
-          >
+          <button onClick={() => showPredefinedToast("infoMessage")}>
             Show Info Toast
           </button>
-          <button
-            onClick={() =>
-              showToast("success", "Your changes were saved successfully!")
-            }
-          >
+          <button onClick={() => showPredefinedToast("successMessage")}>
             Show Success Toast
           </button>
-          <button
-            onClick={() =>
-              showToast("error", "Something went wrong. Please try again.")
-            }
-          >
+          <button onClick={() => showPredefinedToast("errorMessage")}>
             Show Error Toast
           </button>
         </Row>
