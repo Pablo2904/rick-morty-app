@@ -11,6 +11,7 @@ import styles from "./HomePage.module.scss";
 import { useNavigate } from "react-router-dom";
 import ThemedTypography from "components/atoms/ThemedTypography/ThemedTypography";
 import { useTranslation } from "react-i18next";
+import { useToast } from "context/ToastContext/ToastContext";
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>(); // Typed dispatch
@@ -18,6 +19,8 @@ const HomePage: React.FC = () => {
   const navigate = useNavigate();
 
   const { t }: { t: (key: string) => string } = useTranslation();
+  //Wywołanie toast
+  const { showToast } = useToast();
 
   return (
     <div className={styles.page}>
@@ -68,6 +71,27 @@ const HomePage: React.FC = () => {
               {t("homePage.incrementBy5Button")}
             </Button>
           </Col>
+          <button
+            onClick={() =>
+              showToast("info", "This is an informational message!")
+            }
+          >
+            Show Info Toast
+          </button>
+          <button
+            onClick={() =>
+              showToast("success", "Your changes were saved successfully!")
+            }
+          >
+            Show Success Toast
+          </button>
+          <button
+            onClick={() =>
+              showToast("error", "Something went wrong. Please try again.")
+            }
+          >
+            Show Error Toast
+          </button>
         </Row>
       </Container>
     </div>

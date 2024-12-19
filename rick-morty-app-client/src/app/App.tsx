@@ -7,7 +7,7 @@ import i18n from "components/molecules/LanguageToggle/i18n";
 import { I18nextProvider } from "react-i18next";
 import "styles/globals.scss";
 import { ThemeProvider } from "context/ThemeContext/ThemeContext";
-
+import { ToastProvider } from "context/ToastContext/ToastContext";
 
 //wszystkie providery i wrappery tutaj
 const App: React.FC = () => {
@@ -15,7 +15,9 @@ const App: React.FC = () => {
     <I18nextProvider i18n={i18n}>
       <Provider store={store}>
         <ThemeProvider>
-          <AppRouter />
+          <ToastProvider>
+            <AppRouter />
+          </ToastProvider>
         </ThemeProvider>
       </Provider>
     </I18nextProvider>
