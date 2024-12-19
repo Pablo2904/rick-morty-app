@@ -20,7 +20,7 @@ const ThemeToggle = () => {
         type="switch"
         label={
           <ThemedTypography variant="span" size="Small" color="Secondary">
-            {theme === "light" ? "Dark" : "Light"}
+            {theme === "light" ? t("header.darkMode") : t("header.lightMode")}
           </ThemedTypography>
         }
         onChange={() => {}}

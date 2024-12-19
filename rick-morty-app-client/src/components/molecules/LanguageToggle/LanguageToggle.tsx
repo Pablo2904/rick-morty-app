@@ -5,6 +5,11 @@ const LanguageToggle = () => {
   const { i18n, t }: { i18n: any; t: (key: string) => string } =
     useTranslation();
 
+  const languages = [
+    { code: "en", label: t("languages.english") },
+    { code: "es", label: t("languages.spanish") },
+  ];
+
   const changeLanguage = (language: string) => {
     i18n.changeLanguage(language);
     localStorage.setItem("language", language);
@@ -13,19 +18,15 @@ const LanguageToggle = () => {
   return (
     <div>
       <p>{t("header.welcomeMessage")}</p>
-      <button
-        onClick={() => changeLanguage("en")}
-        aria-label="Switch to English"
-      >
-        English
-      </button>
-
-      <button
-        onClick={() => changeLanguage("es")}
-        aria-label="Cambiar a español"
-      >
-        Español
-      </button>
+      {languages.map(({ code, label }) => (
+        <button
+          key={code}
+          onClick={() => changeLanguage(code)}
+          aria-label={t("aria.switchLanguage")}
+        >
+          {label}
+        </button>
+      ))}
     </div>
   );
 };

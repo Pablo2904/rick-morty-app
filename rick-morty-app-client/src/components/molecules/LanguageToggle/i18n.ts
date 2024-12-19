@@ -32,6 +32,13 @@ const resources = {
         text: "Oops! The page you're looking for doesn't exist.",
         goHomeButton: "Go Back Home",
       },
+      languages: {
+        english: "English",
+        spanish: "Spanish",
+      },
+      aria: {
+        switchLanguage: "Switch to {{language}}",
+      },
     },
   },
   es: {
@@ -64,6 +71,13 @@ const resources = {
       notFoundPage: {
         text: "¡Ups! La página que estás buscando no existe.",
         goHomeButton: "Vuelve a casa",
+      },
+      languages: {
+        english: "Inglés",
+        spanish: "Español",
+      },
+      aria: {
+        switchLanguage: "Cambiar a {{language}}",
       },
     },
   },
