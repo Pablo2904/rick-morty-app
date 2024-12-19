@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import App from "./app/App";
 import reportWebVitals from "./reportWebVitals";
 
+import "./components/molecules/LanguageToggle/i18n";
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
