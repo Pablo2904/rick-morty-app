@@ -21,6 +21,7 @@ const HomePage: React.FC = () => {
   const { t }: { t: (key: string) => string } = useTranslation();
   //Wywołanie toast
   const { showPredefinedToast } = useToast();
+  //TOAST
 
   return (
     <div className={styles.page}>
@@ -71,7 +72,7 @@ const HomePage: React.FC = () => {
               {t("homePage.incrementBy5Button")}
             </Button>
           </Col>
-          <button onClick={() => showPredefinedToast("infoMessage")}>
+          {/* <button onClick={() => showPredefinedToast("infoMessage")}>
             Show Info Toast
           </button>
           <button onClick={() => showPredefinedToast("successMessage")}>
@@ -79,7 +80,7 @@ const HomePage: React.FC = () => {
           </button>
           <button onClick={() => showPredefinedToast("errorMessage")}>
             Show Error Toast
-          </button>
+          </button> */}
         </Row>
       </Container>
     </div>
