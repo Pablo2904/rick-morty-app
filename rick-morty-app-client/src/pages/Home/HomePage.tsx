@@ -12,11 +12,15 @@ import styles from "./HomePage.module.scss";
 import { useNavigate } from "react-router-dom";
 import Header from "components/molecules/Header/Header";
 import ThemedTypography from "components/atoms/ThemedTypography/ThemedTypography";
+import { useToast } from "context/ToastContext/ToastContext";
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>(); // Typed dispatch
   const value = useSelector((state: RootState) => state.example.value); // Access the value from state
   const navigate = useNavigate();
+
+  //TOAST
+  // const { showPredefinedToast } = useToast();
 
   return (
     <>
@@ -62,6 +66,15 @@ const HomePage: React.FC = () => {
               Increment by 5
             </Button>
           </Col>
+          {/* <button onClick={() => showPredefinedToast("infoMessage")}>
+            Show Info Toast
+          </button>
+          <button onClick={() => showPredefinedToast("successMessage")}>
+            Show Success Toast
+          </button>
+          <button onClick={() => showPredefinedToast("errorMessage")}>
+            Show Error Toast
+          </button> */}
         </Row>
       </Container>
     </>
