@@ -2,7 +2,11 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import { showToast } from "./ToastNotifications";
 
+//i18next-react
+import { useTranslation } from "react-i18next";
+
 const ExampleToast: React.FC = () => {
+  const { t }: { t: (key: string) => string } = useTranslation();
   return (
     <div>
       <Button
@@ -10,33 +14,33 @@ const ExampleToast: React.FC = () => {
         onClick={() =>
           showToast({
             type: "info",
-            message: "This is an informational message.",
+            message: t("exampleToast.messageInfo"),
           })
         }
       >
-        Show Info Toast
+        {t("exampleToast.buttonInfo")}
       </Button>
       <Button
         variant="success"
         onClick={() =>
           showToast({
             type: "success",
-            message: "Your changes were saved successfully.",
+            message: t("exampleToast.messageSuccess"),
           })
         }
       >
-        Show Success Toast
+        {t("exampleToast.buttonSuccess")}
       </Button>
       <Button
         variant="danger"
         onClick={() =>
           showToast({
             type: "error",
-            message: "Something went wrong. Please try again.",
+            message: t("exampleToast.messageError"),
           })
         }
       >
-        Show Error Toast
+        {t("exampleToast.buttonError")}
       </Button>
     </div>
   );
