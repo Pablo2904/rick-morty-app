@@ -72,15 +72,6 @@ const HomePage: React.FC = () => {
               {t("homePage.incrementBy5Button")}
             </Button>
           </Col>
-          {/* <button onClick={() => showPredefinedToast("infoMessage")}>
-            Show Info Toast
-          </button>
-          <button onClick={() => showPredefinedToast("successMessage")}>
-            Show Success Toast
-          </button>
-          <button onClick={() => showPredefinedToast("errorMessage")}>
-            Show Error Toast
-          </button> */}
         </Row>
       </Container>
     </div>
