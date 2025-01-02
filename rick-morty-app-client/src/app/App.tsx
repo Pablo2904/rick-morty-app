@@ -7,6 +7,9 @@ import i18n from "components/molecules/LanguageToggle/i18n";
 import { I18nextProvider } from "react-i18next";
 import "styles/globals.scss";
 import { ThemeProvider } from "context/ThemeContext/ThemeContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ToastNotifications from "components/molecules/ToastNotifications/ToastNotifications";
 
 //wszystkie providery i wrappery tutaj
 const App: React.FC = () => {
@@ -15,6 +18,7 @@ const App: React.FC = () => {
       <Provider store={store}>
         <ThemeProvider>
           <AppRouter />
+          <ToastNotifications />
         </ThemeProvider>
       </Provider>
     </I18nextProvider>

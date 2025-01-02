@@ -11,7 +11,8 @@ import styles from "./HomePage.module.scss";
 import { useNavigate } from "react-router-dom";
 import ThemedTypography from "components/atoms/ThemedTypography/ThemedTypography";
 import { useTranslation } from "react-i18next";
-import { useToast } from "context/ToastContext/ToastContext";
+
+import ExampleToast from "components/molecules/ToastNotifications/ExampleToast";
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>(); // Typed dispatch
@@ -19,9 +20,6 @@ const HomePage: React.FC = () => {
   const navigate = useNavigate();
 
   const { t }: { t: (key: string) => string } = useTranslation();
-  //Wywołanie toast
-  const { showPredefinedToast } = useToast();
-  //TOAST
 
   return (
     <div className={styles.page}>
@@ -74,6 +72,7 @@ const HomePage: React.FC = () => {
           </Col>
         </Row>
       </Container>
+      <ExampleToast />
     </div>
   );
 };
