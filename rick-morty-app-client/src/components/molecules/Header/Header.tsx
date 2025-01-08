@@ -7,11 +7,6 @@ import { useTranslation } from "react-i18next";
 import "components/molecules/LanguageToggle/i18n";
 import ThemedTypography from "components/atoms/ThemedTypography/ThemedTypography";
 
-const BuggyComponent = () => {
-  throw new Error("Test error!");
-  return <div>Oops!</div>;
-};
-
 export default function Header() {
   const { t }: { t: (key: string) => string } = useTranslation();
 
@@ -26,7 +21,6 @@ export default function Header() {
         <ThemeToggle />
         <LanguageToggle />
       </Stack>
-      <BuggyComponent />
     </header>
   );
 }
