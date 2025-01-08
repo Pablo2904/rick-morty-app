@@ -3,19 +3,32 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "pages/Home/HomePage";
 import AboutPage from "pages/About/AboutPage";
 import NotFoundPage from "pages/404/NotFoundPage";
+import EnhancedErrorBoundary from "utilities/ErrorBoundary/EnhancedErrorBoundary";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
+    element: (
+      <EnhancedErrorBoundary>
+        <HomePage />
+      </EnhancedErrorBoundary>
+    ),
   },
   {
     path: "/about",
-    element: <AboutPage />,
+    element: (
+      <EnhancedErrorBoundary>
+        <AboutPage />
+      </EnhancedErrorBoundary>
+    ),
   },
   {
     path: "*",
-    element: <NotFoundPage />, // Obsługa nieistniejących stron
+    element: (
+      <EnhancedErrorBoundary>
+        <NotFoundPage />
+      </EnhancedErrorBoundary>
+    ),
   },
 ]);
 

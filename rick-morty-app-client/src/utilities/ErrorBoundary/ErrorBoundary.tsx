@@ -1,3 +1,4 @@
+import path from "path";
 import React, { ReactNode } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -5,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 // Interfejsy
 interface ErrorBoundaryProps {
   children: ReactNode;
+  navigate: (path: number) => void;
 }
 
 interface ErrorBoundaryState {
@@ -29,10 +31,14 @@ class ErrorBoundary extends React.Component<
   render() {
     if (this.state.hasError) {
       return (
-        <div>
-          <h1>We had an error! </h1>
-          <Button onClick={() => window.location.reload()}>Reload Page</Button>
-          {/* <button onClick={() => navigate("/")}>Go back</button> */}
+        <div className="error-boundary">
+          <p>We had an error! </p>
+          <div className="error-boundary__buttons">
+            <Button onClick={() => window.location.reload()}>
+              Reload Page
+            </Button>
+            <Button onClick={() => this.props.navigate(-1)}>Go back</Button>
+          </div>
         </div>
       );
     }

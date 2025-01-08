@@ -3,6 +3,11 @@ import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import { Stack } from "react-bootstrap";
 import style from "./Header.module.scss";
 
+const BuggyComponent = () => {
+  throw new Error("Test error!");
+  return <div>Oops!</div>;
+};
+
 export default function Header() {
   return (
     <header>
@@ -14,6 +19,7 @@ export default function Header() {
         Strona o Rick and Morty
         <ThemeToggle />
       </Stack>
+      <BuggyComponent />
     </header>
   );
 }
