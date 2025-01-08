@@ -20,6 +20,9 @@
 
 // Shared styles for both themes
 body {
+  --fontSizeSmall: #{$fontSizeSmall};
+  --fontSizeMedium: #{$fontSizeMedium};
+  --fontSizeLarge: #{$fontSizeLarge};
   font-family: $text-font-family;
   margin: 0;
   padding: 0;

@@ -1,0 +1,31 @@
+@use "styles/variables" as *;
+@use "styles/mixins" as *;
+
+.typography {
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+.typographySmall {
+  font-size: var(--fontSizeSmall);
+  font-weight: lighter;
+}
+
+.typographyMedium {
+  font-size: var(--fontSizeMedium);
+  font-weight: normal;
+}
+
+.typographyLarge {
+  font-size: var(--fontSizeLarge);
+  font-weight: bold;
+}
+
+.typographyPrimary {
+  color: var(--text-primary);
+}
+
+.typographySecondary {
+  color: var(--text-secondary);
+}

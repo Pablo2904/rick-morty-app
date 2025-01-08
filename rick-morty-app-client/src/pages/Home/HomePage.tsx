@@ -11,11 +11,17 @@ import {
 import styles from "./HomePage.module.scss";
 import { useNavigate } from "react-router-dom";
 import Header from "components/molecules/Header/Header";
+import ThemedTypography from "components/atoms/ThemedTypography/ThemedTypography";
+
+//i18next-react
+import { useTranslation } from "react-i18next";
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>(); // Typed dispatch
   const value = useSelector((state: RootState) => state.example.value); // Access the value from state
   const navigate = useNavigate();
+
+  const { t }: { t: (key: string) => string } = useTranslation();
 
   return (
     <>
@@ -23,31 +29,40 @@ const HomePage: React.FC = () => {
       <Container className={`mt-5 ${styles.container}`}>
         <Row className="text-center">
           <Col>
-            <h1 className="display-4">Rick and Morty App</h1>
-            <p className={`lead ${styles.title}`}>
-              Explore characters, locations, and episodes from the Rick and
-              Morty universe.
-            </p>
+            <ThemedTypography variant="h1" size="Large">
+              {t("homePage.testLarge")}
+            </ThemedTypography>
+            <ThemedTypography variant="h2" size="Medium">
+              {t("homePage.testMedium")}
+            </ThemedTypography>
+            <ThemedTypography variant="h3" size="Small">
+              {t("homePage.testSmall")}
+            </ThemedTypography>
 
             <Button
               onClick={() => navigate("/about")}
               variant="primary"
               size="lg"
             >
-              Idź do About This App
+              <ThemedTypography>
+                {t("homePage.goToAboutButton")}
+              </ThemedTypography>
             </Button>
           </Col>
         </Row>
         <Row className="mt-3">
-          <p className={styles.description}>Current Value: {value}</p>
+          <p className={styles.description}>
+            {t("homePage.currentValue")}
+            {value}
+          </p>
           <Col>
             <Button variant="primary" onClick={() => dispatch(increment())}>
-              Increment
+              {t("homePage.incrementButton")}
             </Button>
           </Col>
           <Col>
             <Button variant="secondary" onClick={() => dispatch(decrement())}>
-              Decrement
+              {t("homePage.decrementButton")}
             </Button>
           </Col>
           <Col>
@@ -55,7 +70,7 @@ const HomePage: React.FC = () => {
               variant="success"
               onClick={() => dispatch(incrementByAmount(5))}
             >
-              Increment by 5
+              {t("homePage.incrementBy5Button")}
             </Button>
           </Col>
         </Row>
