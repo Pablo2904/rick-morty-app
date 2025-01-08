@@ -1,0 +1,10 @@
+.footerContainer {
+  background-color: var(--primary-color);
+  border-top: 1px solid #ddd;
+}
+.footerLinks {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0;
+}

@@ -12,6 +12,7 @@ import styles from "./HomePage.module.scss";
 import { useNavigate } from "react-router-dom";
 import Header from "components/molecules/Header/Header";
 import ThemedTypography from "components/atoms/ThemedTypography/ThemedTypography";
+import Footer from "components/molecules/Footer/Footer";
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>(); // Typed dispatch
@@ -19,7 +20,7 @@ const HomePage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <>
+    <div className={styles.page}>
       <Header />
       <Container className={`mt-5 ${styles.container}`}>
         <Row className="text-center">
@@ -64,7 +65,8 @@ const HomePage: React.FC = () => {
           </Col>
         </Row>
       </Container>
-    </>
+      <Footer />
+    </div>
   );
 };
 
