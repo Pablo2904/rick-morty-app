@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./CharacterCard.module.scss";
-import Header from "../Header/Header";
-import Avatar from "../../atoms/Avatar/Avatar";
-import Badge from "../StatusBadge/StatusBadge";
+import Header from "components/molecules/Header/Header";
+import Avatar from "components/atoms/Avatar/Avatar";
+import Badge from "components/molecules/StatusBadge/StatusBadge";
 
 import ThemedTypography from "components/atoms/ThemedTypography/ThemedTypography";
 import { Col, Container, Row } from "react-bootstrap";
