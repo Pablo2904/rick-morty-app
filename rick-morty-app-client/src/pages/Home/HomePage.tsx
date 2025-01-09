@@ -12,6 +12,7 @@ import styles from "./HomePage.module.scss";
 import { useNavigate } from "react-router-dom";
 import Header from "components/molecules/Header/Header";
 import ThemedTypography from "components/atoms/ThemedTypography/ThemedTypography";
+import Footer from "components/molecules/Footer/Footer";
 
 //i18next-react
 import { useTranslation } from "react-i18next";
@@ -24,7 +25,7 @@ const HomePage: React.FC = () => {
   const { t }: { t: (key: string) => string } = useTranslation();
 
   return (
-    <>
+    <div className={styles.page}>
       <Header />
       <Container className={`mt-5 ${styles.container}`}>
         <Row className="text-center">
@@ -75,7 +76,8 @@ const HomePage: React.FC = () => {
           </Col>
         </Row>
       </Container>
-    </>
+      <Footer />
+    </div>
   );
 };
 
