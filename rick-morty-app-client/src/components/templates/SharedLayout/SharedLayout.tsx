@@ -8,7 +8,9 @@ const SharedLayout: React.FC = () => {
   return (
     <div className={style.layout}>
       <Header />
-      <Outlet />
+      <main className={style.content}>
+        <Outlet />
+      </main>
       <Footer />
     </div>
   );
