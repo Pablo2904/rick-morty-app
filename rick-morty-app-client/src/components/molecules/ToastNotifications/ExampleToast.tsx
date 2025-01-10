@@ -1,8 +1,6 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import { showToast } from "./ToastNotifications";
-
-//i18next-react
 import { useTranslation } from "react-i18next";
 
 const ExampleToast: React.FC = () => {

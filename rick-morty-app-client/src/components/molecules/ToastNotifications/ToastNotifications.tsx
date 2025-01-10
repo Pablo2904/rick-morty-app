@@ -3,14 +3,11 @@ import { toast, ToastOptions, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 type ToastType = "info" | "success" | "error";
-
 interface ToastProps {
   type: ToastType;
   message: string;
   duration?: number;
 }
-
-//Opcje toastów
 
 export const showToast = ({ type, message, duration = 3000 }: ToastProps) => {
   const toastOptions: ToastOptions = {
@@ -36,7 +33,6 @@ export const showToast = ({ type, message, duration = 3000 }: ToastProps) => {
   }
 };
 
-// Główny kontener dla toastów
 const ToastNotifications: React.FC = () => {
   return <ToastContainer />;
 };
