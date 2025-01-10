@@ -72,6 +72,7 @@ const HomePage: React.FC = () => {
           </Col>
         </Row>
       </Container>
+      {/* Przykładowe toasty*/}
       <ExampleToast />
     </div>
   );
