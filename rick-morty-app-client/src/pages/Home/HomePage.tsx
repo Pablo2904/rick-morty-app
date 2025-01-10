@@ -1,7 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-
 import { RootState, AppDispatch } from "state/store/store";
 import {
   increment,
@@ -10,11 +9,7 @@ import {
 } from "state/exampleSlice/exampleSlice";
 import styles from "./HomePage.module.scss";
 import { useNavigate } from "react-router-dom";
-// import Header from "components/molecules/Header/Header";
 import ThemedTypography from "components/atoms/ThemedTypography/ThemedTypography";
-// import Footer from "components/molecules/Footer/Footer";
-
-//i18next-react
 import { useTranslation } from "react-i18next";
 
 const HomePage: React.FC = () => {
@@ -26,7 +21,6 @@ const HomePage: React.FC = () => {
 
   return (
     <div className={styles.page}>
-      {/* <Header /> */}
       <Container className={`mt-5 ${styles.container}`}>
         <Row className="text-center">
           <Col>
@@ -76,7 +70,6 @@ const HomePage: React.FC = () => {
           </Col>
         </Row>
       </Container>
-      {/* <Footer /> */}
     </div>
   );
 };
