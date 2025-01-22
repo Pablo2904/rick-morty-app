@@ -16,13 +16,14 @@ import Footer from "components/molecules/Footer/Footer";
 
 //i18next-react
 import { useTranslation } from "react-i18next";
+import Characters from "components/molecules/Character/Character";
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>(); // Typed dispatch
   const value = useSelector((state: RootState) => state.example.value); // Access the value from state
   const navigate = useNavigate();
 
-  const { t }: { t: (key: string) => string } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <div className={styles.page}>

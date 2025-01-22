@@ -6,6 +6,7 @@ import Col from "react-bootstrap/Col";
 import style from "./Footer.module.scss";
 import { NavLink } from "react-router-dom";
 import Avatar from "components/atoms/Avatar/Avatar";
+import Characters from "../Character/Character";
 
 function Footer() {
   return (
