@@ -4,23 +4,28 @@ import HomePage from "pages/Home/HomePage";
 import AboutPage from "pages/About/AboutPage";
 import NotFoundPage from "pages/404/NotFoundPage";
 import EnhancedErrorBoundary from "utilities/ErrorBoundary/EnhancedErrorBoundary";
+import SharedLayout from "components/templates/SharedLayout/SharedLayout";
 
 const router = createBrowserRouter([
   {
+    //Parent Route
     path: "/",
     element: (
       <EnhancedErrorBoundary>
-        <HomePage />
+        <SharedLayout />
       </EnhancedErrorBoundary>
     ),
-  },
-  {
-    path: "/about",
-    element: (
-      <EnhancedErrorBoundary>
-        <AboutPage />
-      </EnhancedErrorBoundary>
-    ),
+    //Child Route
+    children: [
+      {
+        path: "/",
+        element: <HomePage />,
+      },
+      {
+        path: "/about",
+        element: <AboutPage />,
+      },
+    ],
   },
   {
     path: "*",

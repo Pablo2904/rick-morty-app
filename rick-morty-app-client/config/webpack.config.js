@@ -317,12 +317,9 @@ module.exports = function (webpackEnv) {
         "@pages": path.resolve(__dirname, "src/pages"),
         "@router": path.resolve(__dirname, "src/router"),
         "@state": path.resolve(__dirname, "src/state"),
-<<<<<<< HEAD
         "@utilities": path.resolve(__dirname, "src/utilities"),
-=======
         "@api": path.resolve(__dirname, "src/api"),
         "@types": path.resolve(__dirname, "src/types"),
->>>>>>> 081b6943da617e41f4f4594f34c57f8da60adf75
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
         "react-native": "react-native-web",
