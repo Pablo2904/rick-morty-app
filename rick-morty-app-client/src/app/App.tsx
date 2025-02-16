@@ -7,7 +7,6 @@ import i18n from "components/molecules/LanguageToggle/i18n";
 import { I18nextProvider } from "react-i18next";
 import "styles/globals.scss";
 import { ThemeProvider } from "context/ThemeContext/ThemeContext";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ToastNotifications from "components/molecules/ToastNotifications/ToastNotifications";
 
