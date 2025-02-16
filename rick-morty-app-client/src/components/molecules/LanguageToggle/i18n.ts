@@ -39,6 +39,14 @@ const resources = {
       aria: {
         switchLanguage: "Switch to {{language}}",
       },
+      exampleToast: {
+        buttonInfo: "Show Info Toast",
+        messageInfo: "This is an informational message.",
+        buttonSuccess: "Show Success Toast",
+        messageSuccess: "Your changes were saved successfully.",
+        buttonError: "Show Error Toast",
+        messageError: "Something went wrong. Please try again.",
+      },
     },
   },
   es: {
@@ -78,6 +86,14 @@ const resources = {
       },
       aria: {
         switchLanguage: "Cambiar a {{language}}",
+      },
+      exampleToast: {
+        buttonInfo: "Mostrar Información Del Brindis",
+        messageInfo: "Este es un mensaje informativo.",
+        buttonSuccess: "Brindis Por El éxito",
+        messageSuccess: "Sus cambios fueron guardados exitosamente.",
+        buttonError: "Mostrar Mensaje De Error",
+        messageError: "Algo salió mal. Inténtalo de nuevo.",
       },
     },
   },

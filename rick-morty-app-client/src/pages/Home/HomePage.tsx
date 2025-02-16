@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import ThemedTypography from "components/atoms/ThemedTypography/ThemedTypography";
 import { useTranslation } from "react-i18next";
 
+import ExampleToast from "components/molecules/ToastNotifications/ExampleToast";
+
 const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>(); // Typed dispatch
   const value = useSelector((state: RootState) => state.example.value); // Access the value from state
@@ -70,6 +72,8 @@ const HomePage: React.FC = () => {
           </Col>
         </Row>
       </Container>
+      {/* Przykładowe toasty*/}
+      <ExampleToast />
     </div>
   );
 };
