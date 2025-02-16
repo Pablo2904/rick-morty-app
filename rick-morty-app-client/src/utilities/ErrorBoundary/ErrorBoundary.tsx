@@ -1,7 +1,5 @@
-import path from "path";
 import React, { ReactNode } from "react";
 import { Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 
 // Interfejsy
 interface ErrorBoundaryProps {

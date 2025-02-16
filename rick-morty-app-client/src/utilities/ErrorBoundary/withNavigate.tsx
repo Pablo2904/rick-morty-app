@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import ErrorBoundary from "./ErrorBoundary";
 
 //HOC
 function withNavigate(Component: React.ComponentType<any>) {
